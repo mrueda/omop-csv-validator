@@ -46,7 +46,7 @@ echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 #### From CPAN
 
 ```bash
-cpanm OMOP::CSV::Validator --no-test;
+cpanm OMOP::CSV::Validator --no-test
 ```
 
 #### From Github
@@ -54,7 +54,7 @@ cpanm OMOP::CSV::Validator --no-test;
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/mrueda/omop-csv-validator.git`
+git clone https://github.com/mrueda/omop-csv-validator.git
 cd omop-csv-validator
 ```
 
