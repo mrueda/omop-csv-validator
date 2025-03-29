@@ -94,6 +94,12 @@ To run the test suite, execute:
 prove -l t/
 ```
 
+## Utilities
+
+* `reorder-csv.pl`
+
+See directory [utils](utils/README.md).
+
 ## Author 
 
 Written by Manuel Rueda, PhD. Info about CNAG can be found at [https://www.cnag.eu](https://www.cnag.eu).
