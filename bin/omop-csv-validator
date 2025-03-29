@@ -76,7 +76,7 @@ omop_csv_validator - Validate OMOP CDM CSV files against DDL-derived schemas
 
 =head1 SYNOPSIS
 
-  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep "\t"]
+  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t']
 
 =head1 OPTIONS
 
@@ -84,15 +84,15 @@ omop_csv_validator - Validate OMOP CDM CSV files against DDL-derived schemas
 
 =item B<--ddl>
 
-Path to the PostgreSQL DDL file defining OMOP CDM table structures.
+(required) Path to the PostgreSQL DDL file defining OMOP CDM table structures.
 
 =item B<--input>
 
-Path to the input CSV file to validate.
+(required) Path to the input CSV file to validate.
 
 =item B<--sep>
 
-CSV field separator (default is comma). Example for tab: C<--sep $'\t'>
+CSV field separator (default: comma). For tab, use: --sep $'\t'
 
 =item B<--help>, B<-h>
 
@@ -106,6 +106,6 @@ Show the script's version (which corresponds to C<OMOP::CSV::Validator::VERSION>
 
 =head1 EXAMPLE
 
-  bin/omop_csv_validator --ddl ddl/postgres.sql --input data/person.csv --sep "\t"
+  bin/omop_csv_validator --ddl ddl/postgres.sql --input data/person.csv --sep $'\t'
 
 =cut

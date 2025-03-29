@@ -9,7 +9,7 @@ use Text::CSV_XS;
 use Scalar::Util qw(looks_like_number);
 use Path::Tiny;
 
-our $VERSION = '0.00_1';
+our $VERSION = '0.01';
 
 =head1 NAME
 

@@ -86,31 +86,6 @@ With included data:
 bin/omop-csv-validator --ddl ddl/OMOPCDM_postgresql_5.4_ddl.sql -i example/DRUG_EXPOSURE.csv -sep $'\t'
 ```
 
-### As a Module
-
-You can also use the module in your own scripts:
-
-```perl
-use Path::Tiny;
-use OMOP::CSV::Validator qw(load_schemas_from_ddl validate_csv_file);
-
-# Load DDL from a file
-my $ddl_text = path("path/to/OMOPCDM_ddl.sql")->slurp_utf8;
-my $schemas  = load_schemas_from_ddl($ddl_text);
-
-# Get the appropriate schema (e.g., for 'person' table)
-my $schema = $schemas->{person};
-
-# Validate a CSV file
-my $errors = validate_csv_file("path/to/data.csv", $schema, ",");
-if (@$errors) {
-    warn "Validation errors found:\n", 
-         join("\n", map { "Row $_->{row}: " . join(", ", @{$_->{errors}}) } @$errors), "\n";
-} else {
-    print "CSV is valid!\n";
-}
-```
-
 ## Running Tests
 
 To run the test suite, execute:

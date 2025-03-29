@@ -23,17 +23,20 @@ GetOptions(
 # Show usage if help requested or required arguments are missing
 if ( $help || !( $ddl_file && $input_csv && $output_csv && $ddl_type ) ) {
     print <<"USAGE";
-Usage: $0 --ddl DDL_FILE --ddl-type DDL_TYPE --input INPUT_CSV --output OUTPUT_CSV [--sep SEPARATOR]
+Usage:
+    ./$0 --ddl DDL_FILE --ddl-type TYPE --input INPUT_CSV --output OUTPUT_CSV [--sep SEPARATOR]
 
-Arguments:
-  --ddl        File containing the DDL (CREATE TABLE or index definitions)
-  --ddl-type   Type of the DDL (e.g., sqlite, postgresql)
-  --input      Input CSV file (with header row)
-  --output     Output CSV file with columns reordered to match the DDL
-  --sep        Field separator character (optional, defaults to tab)
+Options:
+    --ddl        (required) File containing the DDL (CREATE TABLE or index definitions)
+    --ddl-type   (required) Type of the DDL (e.g., sqlite, postgresql)
+    --input      (required) Input CSV file (with header row)
+    --output     (required) Output CSV file with columns reordered to match the DDL
+    --sep        Field separator character (default: tab)
+    --help, -h   Show this help message.
+    --version, -V  Show the script's version.
 
 Example:
-  perl $0 --ddl schema.sql --ddl-type postgresql --input PERSON.csv --output output.csv --sep ";"
+    ./$0 --ddl schema.sql --ddl-type postgresql --input PERSON.csv --output output.csv --sep ";"
 USAGE
     exit;
 }
