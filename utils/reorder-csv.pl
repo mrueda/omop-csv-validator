@@ -24,7 +24,7 @@ GetOptions(
 if ( $help || !( $ddl_file && $input_csv && $output_csv && $ddl_type ) ) {
     print <<"USAGE";
 Usage:
-    ./$0 --ddl DDL_FILE --ddl-type TYPE --input INPUT_CSV --output OUTPUT_CSV [--sep SEPARATOR]
+    $0 --ddl DDL_FILE --ddl-type TYPE --input INPUT_CSV --output OUTPUT_CSV [--sep SEPARATOR]
 
 Options:
     --ddl        (required) File containing the DDL (CREATE TABLE or index definitions)
@@ -36,7 +36,7 @@ Options:
     --version, -V  Show the script's version.
 
 Example:
-    ./$0 --ddl schema.sql --ddl-type postgresql --input PERSON.csv --output output.csv --sep ";"
+    $0 --ddl schema.sql --ddl-type postgresql --input PERSON.csv --output output.csv --sep ";"
 USAGE
     exit;
 }
