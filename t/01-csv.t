@@ -5,7 +5,7 @@ use utf8;
 use lib 'lib';
 use Test::More tests => 4;
 use Path::Tiny;
-use JSON;
+use JSON::XS;
 use Text::CSV_XS;
 use JSON::Validator;
 

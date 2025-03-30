@@ -57,8 +57,8 @@ my $errors = $validator->validate_csv_file($csv_file, $schema, $sep);
 
 if (@$errors) {
     foreach my $err (@$errors) {
-        warn "Row $err->{row} validation failed:\n",
-          join( "\n", @{ $err->{errors} } ), "\n";
+        say "Row $err->{row} validation failed:\n",
+          join( "\n", @{ $err->{errors} } );
     }
     exit 1;
 }
