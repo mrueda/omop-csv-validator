@@ -16,6 +16,7 @@ use Path::Tiny;
 use OMOP::CSV::Validator;  # Now loads the OO version (no explicit import list)
 use JSON::XS;
 use Pod::Usage;
+use Data::Dumper;
 
 # If you want the module's version, access it directly:
 my $VERSION = $OMOP::CSV::Validator::VERSION;
@@ -25,14 +26,16 @@ my $ddl_file;
 my $csv_file;
 my $sep = ',';
 my $table_name;   # <-- new optional parameter
+my $schemas_file; # <-- new option to save schemas to file
 
 GetOptions(
-    'ddl=s'     => \$ddl_file,   # Path to the DDL file (PostgreSQL)
-    'input=s'   => \$csv_file,   # Path to the input CSV file
-    'sep=s'     => \$sep,        # Field separator (default: comma)
-    'table|t=s' => \$table_name, # Optional: override table name
-    'help|h'    => \my $help,    # Show help message
-    'version|V' => sub { say "$0 Version $VERSION"; exit; },
+    'ddl=s'           => \$ddl_file,     # Path to the DDL file (PostgreSQL)
+    'input=s'         => \$csv_file,     # Path to the input CSV file
+    'sep=s'           => \$sep,          # Field separator (default: comma)
+    'table|t=s'       => \$table_name,   # Optional: override table name
+    'save-schemas=s'  => \$schemas_file, # Optional: file to save schemas
+    'help|h'          => \my $help,      # Show help message
+    'version|V'       => sub { say "$0 Version $VERSION"; exit; },
 ) or pod2usage(2);
 
 pod2usage(1) if $help;
@@ -51,7 +54,14 @@ my $validator = OMOP::CSV::Validator->new();
 # Load schemas from the DDL
 my $schemas = $validator->load_schemas_from_ddl($ddl_text);
 
-# If --table was not passed, we derive from the CSV filename; otherwise, use what was provided.
+# Optionally save schemas to a file if --save-schemas was provided
+if ($schemas_file) {
+    my $json = JSON::XS->new->utf8->pretty->encode($schemas);
+    path($schemas_file)->spew_utf8($json);
+    say "Schemas saved to '$schemas_file'";
+}
+
+# If --table was not passed, derive from the CSV filename; otherwise, use what was provided.
 my $schema;
 if ($table_name) {
     # Attempt to find the schema by the given table name
@@ -87,7 +97,7 @@ omop_csv_validator - Validate OMOP CDM CSV files against DDL-derived schemas
 
 =head1 SYNOPSIS
 
-  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t'] [--table person]
+  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t'] [--table person] [--save-schemas schemas.json]
 
 =head1 OPTIONS
 
@@ -110,6 +120,10 @@ CSV field separator (default: comma). For tab, use: --sep $'\t'
 (optional) Table name to validate against. If not provided, the script will attempt
 to derive the table name from the CSV filename.
 
+=item B<--save-schemas>
+
+(optional) Path to a file where the DDL-derived schemas should be saved (in JSON format).
+
 =item B<--help>, B<-h>
 
 Display this help message.
@@ -124,5 +138,6 @@ Show the script's version (which corresponds to C<OMOP::CSV::Validator::VERSION>
 
   bin/omop_csv_validator --ddl ddl/postgres.sql --input data/person.csv --sep $'\t'
   bin/omop_csv_validator --ddl ddl/postgres.sql --input data/ANY_CSV.csv --table person
+  bin/omop_csv_validator --ddl ddl/postgres.sql --input data/ANY_CSV.csv --save-schemas schemas.json
 
 =cut

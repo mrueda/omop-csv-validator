@@ -1,10 +1,11 @@
 Rvision history for Perl distribution OMOP-CSV-Validator
 
-0.02 2025-04-XXT00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+0.02 2025-04-02T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
- - Now CLI errors are sent to STDOUT (say) instead of STDERR (warn) for "easier" capture
- - Fixed #1 issue
- - Added optional <--table> parameter to provide table name to bin and utils
+ - CLI errors are now sent to STDOUT (say) instead of STDERR (warn) for easier capture
+ - Fixed issue #1
+ - Added optional <--table> parameter to specify the table name for bin and utils
+ - Added optional <--save-schemas> parameter to save JSON schemas of tables to a file
 
 0.01 2025-03-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
