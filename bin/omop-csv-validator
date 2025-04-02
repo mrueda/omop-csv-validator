@@ -23,12 +23,14 @@ my $VERSION = $OMOP::CSV::Validator::VERSION;
 my $ddl_file;
 my $csv_file;
 my $sep = ',';
+my $table_name;   # <-- new optional parameter
 
 GetOptions(
-    'ddl=s'     => \$ddl_file,  # Path to the DDL file (PostgreSQL)
-    'input=s'   => \$csv_file,  # Path to the input CSV file
-    'sep=s'     => \$sep,       # Field separator (default: comma)
-    'help|h'    => \my $help,   # Show help message
+    'ddl=s'     => \$ddl_file,   # Path to the DDL file (PostgreSQL)
+    'input=s'   => \$csv_file,   # Path to the input CSV file
+    'sep=s'     => \$sep,        # Field separator (default: comma)
+    'table|t=s' => \$table_name, # Optional: override table name
+    'help|h'    => \my $help,    # Show help message
     'version|V' => sub { say "$0 Version $VERSION"; exit; },
 ) or pod2usage(2);
 
@@ -48,9 +50,18 @@ my $validator = OMOP::CSV::Validator->new();
 # Load schemas from the DDL
 my $schemas = $validator->load_schemas_from_ddl($ddl_text);
 
-# Determine which schema to use based on the CSV file name
-my $schema = $validator->get_schema_from_csv_filename($csv_file, $schemas)
-  or die "No schema found for table derived from '$csv_file'\n";
+# If --table was not passed, we derive from the CSV filename; otherwise, use what was provided.
+my $schema;
+if ($table_name) {
+    # Attempt to find the schema by the given table name
+    $schema = $schemas->{ lc $table_name }
+      or die "No schema found for table '$table_name'\n";
+}
+else {
+    # Determine which schema to use based on the CSV file name
+    $schema = $validator->get_schema_from_csv_filename($csv_file, $schemas)
+      or die "No schema found for table derived from '$csv_file'\n";
+}
 
 # Validate the CSV file
 my $errors = $validator->validate_csv_file($csv_file, $schema, $sep);
@@ -63,8 +74,7 @@ if (@$errors) {
     exit 1;
 }
 else {
-    print
-      "CSV file '$csv_file' is valid against the '$schema->{title}' schema.\n";
+    print "CSV file '$csv_file' is valid against the '$schema->{title}' schema.\n";
     exit 0;
 }
 
@@ -76,7 +86,7 @@ omop_csv_validator - Validate OMOP CDM CSV files against DDL-derived schemas
 
 =head1 SYNOPSIS
 
-  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t']
+  omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t'] [--table person]
 
 =head1 OPTIONS
 
@@ -94,6 +104,11 @@ omop_csv_validator - Validate OMOP CDM CSV files against DDL-derived schemas
 
 CSV field separator (default: comma). For tab, use: --sep $'\t'
 
+=item B<--table>, B<-t>
+
+(optional) Table name to validate against. If not provided, the script will attempt
+to derive the table name from the CSV filename.
+
 =item B<--help>, B<-h>
 
 Display this help message.
@@ -107,5 +122,6 @@ Show the script's version (which corresponds to C<OMOP::CSV::Validator::VERSION>
 =head1 EXAMPLE
 
   bin/omop_csv_validator --ddl ddl/postgres.sql --input data/person.csv --sep $'\t'
+  bin/omop_csv_validator --ddl ddl/postgres.sql --input data/ANY_CSV.csv --table person
 
 =cut
