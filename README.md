@@ -1,3 +1,7 @@
+# Links
+
+**📦 CPAN Distribution:** <a href="https://metacpan.org/pod/OMOP::CSV::Validator" target="_blank">https://metacpan.org/pod/OMOP::CSV::Validator</a>
+
 # OMOP CSV Validator
 
 The OMOP CSV Validator is a **CLI tool** (and module) that **validates OMOP CDM CSV files against their expected data types**. Rather than relying solely on `Types::Standard` or similar libraries, it converts SQL schemas derived from the OMOP Common Data Model (CDM) PostgreSQL DDL files into JSON schemas. It then utilizes `JSON::Validator`, which **scales efficiently with large datasets and provides meaningful error messages**.
@@ -7,7 +11,6 @@ The OMOP CSV Validator is a **CLI tool** (and module) that **validates OMOP CDM 
 - **DDL Parsing:** Automatically converts PostgreSQL OMOP CDM DDL into JSON schemas.
 - **Version Independent** Works with any DDL (e.g., 5.3, 5.4).
 - **CSV Validation:** Validates CSV files using JSON::Validator.
-- **Numeric Coercion:** Coerces CSV numeric fields (including handling of null values).
 - **Modular Design:** Separate CLI and module for easy testing and integration.
 
 ## Installation
@@ -81,7 +84,7 @@ Once dependencies are installed, you can run the CLI tool as follows:
 bin/omop-csv-validator --ddl path/to/OMOPCDM_ddl.sql --input path/to/data.csv --sep ","
 ```
 
-With included data:
+With the included `example` data:
 
 ```bash
 bin/omop-csv-validator --ddl ddl/OMOPCDM_postgresql_5.4_ddl.sql -i example/DRUG_EXPOSURE.csv -sep $'\t'

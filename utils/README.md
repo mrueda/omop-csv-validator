@@ -14,9 +14,10 @@
 
 ## Dependencies
 
+#### Note: If you installed `omop-csv-validator` this should work out-of-the-box.
+
 - **Perl:** Make sure Perl is installed on your system.
 - **Modules:**
-  - `Getopt::Long` for command-line option parsing.
   - `Text::CSV_XS` for CSV processing.
 
 ## Usage
