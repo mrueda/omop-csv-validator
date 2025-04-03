@@ -5,6 +5,7 @@ The OMOP CSV Validator is a **CLI tool** (and module) that **validates OMOP CDM 
 ## Features
 
 - **DDL Parsing:** Automatically converts PostgreSQL OMOP CDM DDL into JSON schemas.
+- **Version Independent** Works with any DDL (e.g., 5.3, 5.4).
 - **CSV Validation:** Validates CSV files using JSON::Validator.
 - **Numeric Coercion:** Coerces CSV numeric fields (including handling of null values).
 - **Modular Design:** Separate CLI and module for easy testing and integration.

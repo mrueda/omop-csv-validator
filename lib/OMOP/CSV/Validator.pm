@@ -10,7 +10,7 @@ use Scalar::Util qw(looks_like_number);
 use Path::Tiny;
 use Data::Dumper;
 
-our $VERSION = '0.02_1';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -26,7 +26,7 @@ OMOP::CSV::Validator - Validates OMOP CDM CSV files against their expected data 
     my $schemas = $validator->load_schemas_from_ddl($ddl_text);
 
     # Retrieve specific table schema for a CSV file
-    my $schema  = $validator->get_schema_from_csv_filename($csv_file, $schemas);
+    my $schema = $validator->get_schema_from_csv_filename($csv_file, $schemas);
 
     # Validate CSV file
     my $errors  = $validator->validate_csv_file($csv_file, $schema);
@@ -121,12 +121,12 @@ sub _build_schema {
             my $prop = {};
 
             if ( $type =~ /int/ ) {
-                $prop->{type}  = 'integer';
-                $prop->{_type} = 'integer';
+                $prop->{type}    = 'integer';
+                $prop->{_coerce} = 1;
             }
             elsif ( $type =~ /numeric|real|double/ ) {
-                $prop->{type}  = 'number';
-                $prop->{_type} = 'number';
+                $prop->{type}    = 'number';
+                $prop->{_coerce} = 1;
 
             }
             elsif ( $type eq 'date' ) {
@@ -210,12 +210,7 @@ sub validate_csv_file {
         for my $col ( keys %{ $schema->{properties} } ) {
             if ( exists $record->{$col} ) {
                 my $prop = $schema->{properties}->{$col};
-                if (
-                    defined $prop->{_type}
-                    && (   $prop->{_type} eq 'integer'
-                        or $prop->{_type} eq 'number' )
-                  )
-                {
+                if ( defined $prop->{_coerce} && $prop->{_coerce} ) {
                     $record->{$col} =
                       $self->dotify_and_coerce_number( $record->{$col} );
                 }
