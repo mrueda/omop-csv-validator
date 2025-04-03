@@ -1,13 +1,17 @@
 Revision history for Perl distribution OMOP-CSV-Validator
 
+0.03 2025-04-02T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
+
+ - Added blank_is_undef => 1 to TEXT::CSV_XS
+ - Fixed issue with non-required properties with NULL values
+ - Added a custom "_coerce" property on numeric fields to enable coercion into number
+
 0.02 2025-04-02T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
  - CLI errors are now sent to STDOUT (say) instead of STDERR (warn) for easier capture
  - Fixed issue #1
  - Added optional <--table> parameter to specify the table name for bin and utils
  - Added optional <--save-schemas> parameter to save JSON schemas of tables to a file
- - Added blank_is_undef => 1 to TEXT::CSV_XS
- - Added a custom "_coerce" property on numeric fields to enable coercion into number
 
 0.01 2025-03-29T00:00:00Z (Manuel Rueda <mrueda@cpan.org>)
 
