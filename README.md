@@ -64,8 +64,6 @@ cd omop-csv-validator
 
 2. Install Dependencies:
 
-Run:
-
 ```bash
 cpanm --notest --installdeps .
 ```
