@@ -25,7 +25,7 @@ If you don't have `cpanm` installed, run:
 sudo apt-get install cpanminus
 ```
 
-If you don't have `gcc` compiler and other default Linux utils installed please do:
+If you don't have the `gcc` compiler and other default Linux utils installed please do:
 
 ```bash
 sudo apt-get install gcc make libperl-dev
@@ -49,6 +49,8 @@ echo 'eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)' >> ~/.bashrc
 
 #### From CPAN
 
+From any directory:
+
 ```bash
 cpanm OMOP::CSV::Validator --no-test
 ```
@@ -62,7 +64,7 @@ git clone https://github.com/mrueda/omop-csv-validator.git
 cd omop-csv-validator
 ```
 
-2. Install Dependencies:
+2. Install Dependencies from:
 
 ```bash
 cpanm --notest --installdeps .
@@ -74,7 +76,7 @@ This command reads the included `cpanfile` and installs all required dependencie
 
 ### Command-Line Interface
 
-Once dependencies are installed, you can run the CLI tool as follows:
+Once dependencies are installed, you can run the **CLI** tool as follows:
 
 (If you installed fron CPAN then you can simply run `omop-csv-validator`).
 
@@ -101,6 +103,16 @@ prove -l t/
 * `reorder-csv.pl`
 
 See directory [utils](utils/README.md).
+
+## Notes
+
+### Data Format
+
+The `TIMESTAMP` field from the DDL is translated to the `date-time` format as defined in the JSON Schema specification:
+
+`YYYY-MM-DDTHH:MM:SSZ`
+
+If your dates only follow the `YYYY-MM-DD` format, you can safely ignore any validation errors related to the missing time component.
 
 ## Author 
 
