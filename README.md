@@ -98,6 +98,10 @@ With the included `example` data:
 bin/omop-csv-validator --ddl ddl/OMOPCDM_postgresql_5.4_ddl.sql -i example/DRUG_EXPOSURE.csv -sep $'\t'
 ```
 
+Example of an error:
+
+![Error](docs/img/example-error.png)
+
 ## Running Tests
 
 To run the test suite, execute:
