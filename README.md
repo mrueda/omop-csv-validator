@@ -1,11 +1,10 @@
 <p align="center">
-  <a href="https://github.com/mrueda/OMOP-CSV-Validator"><img src="https://raw.githubusercontent.com/mrueda/OMOP-CSV-Validator/main/docs/img/omop-csv-validator-logo.png" width="400" alt="OMOP-CSV-Validator"></a>
+  <a href="https://github.com/mrueda/OMOP-CSV-Validator"><img src="https://raw.githubusercontent.com/mrueda/OMOP-CSV-Validator/main/docs/img/omop-csv-validator-logo.png" width="300" alt="OMOP-CSV-Validator"></a>
 </p>
 
 [![CPAN Publish](https://github.com/mrueda/OMOP-CSV-Validator/actions/workflows/cpan-publish.yml/badge.svg)](https://github.com/mrueda/OMOP-CSV-Validator/actions/workflows/cpan-publish.yml)
 [![Kwalitee Score](https://cpants.cpanauthors.org/dist/OMOP-CSV-Validator.svg)](https://cpants.cpanauthors.org/dist/OMOP-CSV-Validator)
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic%202.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
-
 
 # Links
 
