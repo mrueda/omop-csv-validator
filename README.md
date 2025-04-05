@@ -98,9 +98,46 @@ With the included `example` data:
 bin/omop-csv-validator --ddl ddl/OMOPCDM_postgresql_5.4_ddl.sql -i example/DRUG_EXPOSURE.csv -sep $'\t'
 ```
 
-Example of an error:
+Example of an error in table `person`:
 
 ![Error](docs/img/example-error.png)
+
+### Options
+
+```bash
+Usage:
+      omop_csv_validator --ddl DDL.sql --input DATA.csv [--sep $'\t'] [--table person] [--save-schemas schemas.json]
+
+Options:
+    --ddl
+        (required) Path to the PostgreSQL DDL file defining OMOP CDM table
+        structures.
+
+    --input
+        (required) Path to the input CSV file to validate.
+
+    --sep
+        CSV field separator (default: comma). For tab, use: --sep $'\t'
+
+    --table, -t
+        (optional) Table name to validate against. If not provided, the
+        script will attempt to derive the table name from the CSV filename.
+
+    --save-schemas
+        (optional) Path to a file where the DDL-derived schemas should be
+        saved (in JSON format).
+
+    --no-color, -nc
+        (Optional) Turn off STDOUT color
+
+    --help, -h
+        Display this help message.
+
+    --version, -V
+        Show the script's version (which corresponds to
+        "OMOP::CSV::Validator::VERSION").
+```
+
 
 ## Running Tests
 
